@@ -7,9 +7,11 @@ class App extends React.Component {
     };
   }
 
-  onListItemClick(a, b) {
+  onListItemClick(props) {
+    console.log(props);
+    console.log(props.video.snippet.thumbnails.default.url);
     this.setState( {
-      video: b[a]
+      video: props.video
     });
   }
 
@@ -22,7 +24,7 @@ class App extends React.Component {
           <VideoPlayer video={this.state.video}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={exampleVideoData} onListItemClick={this.onListItemClick.bind(this)}/>
+          <VideoList videos={exampleVideoData} onVideoClick={this.onListItemClick.bind(this)}/>
         </div>
       </div>
 

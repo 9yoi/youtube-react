@@ -1,6 +1,6 @@
 // STATIC
 var VideoListEntry = (props) => (
-  <div className="video-list-entry" onClick>
+  <div className="video-list-entry" onClick={ function() { props.onVideoClick(props); }}>
     <div className="media-left media-middle">
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
     </div>
