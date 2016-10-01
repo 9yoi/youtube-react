@@ -32,20 +32,20 @@ var hasSameShape = function(objectOne, objectTwo) {
 };
 
 describe('searchYouTube', function() {
-  var requests, xhr;
+  var requests, hr;
 
   // Sinon temporarily hijacks all outgoing AJAX requests with `useFakeXMLHttpRequest`
   // letting us synchronously inspect any request made by `searchYouTube`
 
   beforeEach(function() {
     requests = [];
-    xhr = sinon.useFakeXMLHttpRequest();
-    xhr.onCreate = function(req) { requests.push(req); };
+    hr = sinon.useFakeXMLHttpRequest();
+    hr.onCreate = function(req) { requests.push(req); };
   });
 
   afterEach(function() {
-    if (xhr.restore) {
-      xhr.restore();
+    if (hr.restore) {
+      hr.restore();
     }
   });
 
@@ -74,9 +74,10 @@ describe('searchYouTube', function() {
     };
 
     // We want this test to make a real AJAX request
-    xhr.restore();
+    hr.restore();
 
     searchYouTube(options, (data) => {
+      // console.log(data, window.exampleVideoData);
       expect(hasSameShape(data, window.exampleVideoData)).to.be.true;
       done();
     });
