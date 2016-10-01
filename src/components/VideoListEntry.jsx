@@ -1,6 +1,6 @@
 // STATIC
 var VideoListEntry = (props) => (
-  <div className="video-list-entry">
+  <div className="video-list-entry" onClick>
     <div className="media-left media-middle">
       <img className="media-object" src={props.video.snippet.thumbnails.default.url} alt="" />
     </div>
@@ -11,6 +11,7 @@ var VideoListEntry = (props) => (
   </div>
 );
 
+/*<div onClick={this.onListItemClick.bind(this)} className="video-list-entry-title">{props.video.snippet.title}</div>*/
 // class VideoListEntry extends React.Component {
 //   constructor(props) {
 //     super (props);
