@@ -2,42 +2,28 @@ class App extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {
-      video: 
-      {
-        kind: '',
-        etag: '',
-        id: {
-          kind: '',
-          videoId: ''
-        },
-        snippet: {
-          publishedAt: '',
-          channelId: '',
-          title: '',
-          description: '',
-          thumbnails: {
-            default: {
-              url: '',
-              width: 0,
-              height: 0
-            },
-            medium: {
-              url: '',
-              width: 0,
-              height: 0
-            },
-            high: {
-              url: '',
-              width: 0,
-              height: 0
-            }
-          },
-          channelTitle: '',
-          liveBroadcastContent: ''
-        }
-      },
-      results: []
+      videos: [],
+      video: exampleVideoData[0]
     };
+  }
+
+  componentDidMount () {
+    this.getYouTubeVideos('dogs');
+  }
+
+  getYouTubeVideos (query) {
+    console.log(query);
+    var options = {
+      key: this.props.API_KEY,
+      query: query
+    };
+
+    this.props.searchYouTube(options, (videos) =>
+      this.setState({
+        videos: videos,
+        video: videos[0]
+      })
+    );
   }
 
   onListItemClick(props) {
@@ -48,25 +34,15 @@ class App extends React.Component {
     });
   }
 
-  getVideos () {
-    console.log('getVideos');
-    var initialize = {};
-    initialize.key = window.YOUTUBE_API_KEY;
-    initialize.q = 'cats';
-
-    window.searchYouTube(initalize, render);
-  }
-
-
   render () {
     return (
       <div>
-        <Nav />
+        <Nav handleSearchQuery={this.getYouTubeVideos.bind(this)}/>
         <div className="col-md-7">
           <VideoPlayer video={this.state.video}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={exampleVideoData} onVideoClick={this.onListItemClick.bind(this)}/>
+          <VideoList videos={this.state.videos} onVideoClick={this.onListItemClick.bind(this)}/>
         </div>
       </div>
 
